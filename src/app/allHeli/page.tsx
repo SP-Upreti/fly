@@ -43,7 +43,7 @@ const Page = () => {
     );
 
     // Only access document when on client side
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       trekkingRegions.forEach((region) => {
         const el = document.getElementById(region.id);
         if (el) observer.observe(el);
@@ -67,9 +67,8 @@ const Page = () => {
       <div className="relative z-10 w-full h-[50vh] px-6 sm:px-16  border-b-rounded-xl bg-black/80 ">
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-50 z-1">
           <Image
-            height={500}
-            width={500}
-            className=" h-30"
+            height={120}
+            width={120}
             src="/heroimages/favicon.ico"
             alt="icon"
           />

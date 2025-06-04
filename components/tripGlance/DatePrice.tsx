@@ -1,6 +1,6 @@
 const DatePrice = () => {
   return (
-    <div className="mt-10">
+    <div id="date-&-prices" className="mt-10">
       <h1 className="text-3xl font-semibold mb-6">Date & Price</h1>
       <p className="text-gray-700 text-sm">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia nisi

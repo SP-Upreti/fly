@@ -9,6 +9,12 @@ import {
   Mail,
   ChevronRight,
   ArrowUpRight,
+  Send,
+  Calendar,
+  Mountain,
+  Globe,
+  User,
+  X,
 } from "lucide-react";
 import {
   mountaineeringData,
@@ -38,10 +44,82 @@ const Navbar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   const [isClient, setIsClient] = useState(false);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    country: "",
+    category: "Mountaineering",
+    subCategory: "",
+    expedition: "",
+    arrivalDate: "",
+    departureDate: "",
+    message: "",
+  });
+
+  // Example expeditions array, replace with your actual data as needed
+  const expeditions = [
+    "Everest Expedition",
+    "Annapurna Expedition",
+    "Manaslu Expedition",
+    "Dhaulagiri Expedition",
+    "Makalu Expedition",
+  ];
+
+  // Example countries array, replace or extend as needed
+  const countries = [
+    "Nepal",
+    "India",
+    "China",
+    "United States",
+    "United Kingdom",
+    "Australia",
+    "Canada",
+    "Germany",
+    "France",
+    "Japan",
+    "South Korea",
+    "Brazil",
+    "South Africa",
+    "Italy",
+    "Spain",
+    "Switzerland",
+    "Russia",
+    "New Zealand",
+    "Argentina",
+    "Mexico",
+  ];
+
+  // Example mountaineering subcategories, replace or generate as needed
+  const mountaineeringSubCategories = Object.keys(mountaineeringData).map(
+    (key) => mountaineeringData[key].title
+  );
+
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Form submitted:", formData);
+    // Handle form submission logic here
+    // You can send to WhatsApp or your backend
+    setIsFormOpen(false);
+  };
 
   // Set isClient to true on mount (client-side only)
   useEffect(() => {
     setIsClient(true);
+
     // Set initial scroll position
     setLastScrollY(window.scrollY);
     setScrolled(window.scrollY > 0);
@@ -53,14 +131,14 @@ const Navbar = () => {
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       // Only update state if scroll position changes significantly (performance optimization)
       if (Math.abs(currentScrollY - lastScrollY) < 50) return;
-      
+
       // Scroll down and past threshold -> hide navbar
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
         setShowNavbar(false);
-      } 
+      }
       // Scroll up or at top -> show navbar
       else if (currentScrollY < lastScrollY || currentScrollY < 10) {
         setShowNavbar(true);
@@ -71,11 +149,11 @@ const Navbar = () => {
     };
 
     // Add passive: true for better performance
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
     // Cleanup function
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [isClient, lastScrollY]);
 
@@ -157,7 +235,7 @@ const Navbar = () => {
 
   // Handle body overflow when dropdown is open
   useEffect(() => {
-    if (isClient && typeof document !== 'undefined') {
+    if (isClient && typeof document !== "undefined") {
       if (activeDropdown) {
         document.body.classList.add("overflow-hidden");
         setBgurl(true);
@@ -165,18 +243,15 @@ const Navbar = () => {
         document.body.classList.remove("overflow-hidden");
         setBgurl(false);
       }
-      
+
       // Cleanup function to ensure we don't leave the body in a locked state
       return () => {
-        if (typeof document !== 'undefined') {
+        if (typeof document !== "undefined") {
           document.body.classList.remove("overflow-hidden");
         }
       };
     }
   }, [activeDropdown, isClient]);
-
-
-
 
   return (
     <div id="" className="relative">
@@ -197,7 +272,14 @@ const Navbar = () => {
         {/* Logo */}
         <div>
           <Link href="/" className="cursor-pointer">
-            <Image priority height={100} width={300} src="/logo1.png" alt="Flyeast Adventures" className="h-10 w-auto  " />
+            <Image
+              priority
+              height={100}
+              width={300}
+              src="/logo1.png"
+              alt="Flyeast Adventures"
+              className="h-10 w-auto  "
+            />
           </Link>
         </div>
 
@@ -390,14 +472,270 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Let's Talk Button */}
+        {/* Trigger Button */}
         <div className="hidden md:block">
-          <Link href="https://wa.me/+9779801086542" target="_blank">
-            <button className="py-2 px-8 bg-[#EA3359] text-white flex items-center justify-center gap-4 rounded-full transition-all duration-300 hover:bg-[#d62a33] cursor-pointer">
-              Let's Talk
-            </button>
-          </Link>
+          <button
+            onClick={() => setIsFormOpen(true)}
+            className="py-2 px-4 bg-[#EA3359] text-white flex items-center justify-center gap-4 rounded-full transition-all duration-300 hover:bg-[#d62a33] cursor-pointer animate-pulse"
+          >
+            Customize Your Trip
+          </button>
         </div>
+
+        {/* Modal */}
+        {isFormOpen && (
+          <div className="fixed top-0 left-1/2 right-0 flex items-center justify-center z-50">
+            <div className="bg-white rounded-l-2xl shadow-2xl max-w-4xl w-full h-screen overflow-y-auto">
+              {/* Header */}
+              <div className="sticky top-0 bg-gradient-to-r from-[#EA3359] to-[#d62a33] text-white p-6 rounded-l-2xl z-10">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h2 className="text-2xl font-bold">Customize Your Trip</h2>
+                    <p className="text-white/90 mt-1">
+                      Let's plan your perfect adventure
+                    </p>
+                  </div>
+                  <button
+                    onClick={() => setIsFormOpen(false)}
+                    className="p-2 hover:bg-white/20 rounded-full transition-colors"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Form Body */}
+              <div className="p-6 space-y-8">
+                {/* Personal Details */}
+                <div>
+                  <div className="flex items-center gap-2 mb-6">
+                    <User className="w-5 h-5 text-[#EA3359]" />
+                    <h3 className="text-xl font-semibold text-gray-800">
+                      Personal Details
+                    </h3>
+                    <div className="h-px bg-[#EA3359] flex-1 ml-4"></div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Full Name */}
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-700">
+                        Full Name
+                      </label>
+                      <input
+                        type="text"
+                        name="fullName"
+                        value={formData.fullName}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#EA3359] focus:border-transparent transition-all"
+                        placeholder="Enter your full name"
+                      />
+                    </div>
+
+                    {/* Email */}
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-700">
+                        Email Address
+                      </label>
+                      <div className="relative">
+                        <Mail className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                        <input
+                          type="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#EA3359] focus:border-transparent transition-all"
+                          placeholder="your@email.com"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Phone */}
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-700">
+                        Phone Number
+                      </label>
+                      <div className="relative">
+                        <Phone className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                        <input
+                          type="tel"
+                          name="phone"
+                          value={formData.phone}
+                          onChange={handleInputChange}
+                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#EA3359] focus:border-transparent transition-all"
+                          placeholder="+1234567890"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Country */}
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-700">
+                        Country
+                      </label>
+                      <div className="relative">
+                        <Globe className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                        <select
+                          name="country"
+                          value={formData.country}
+                          onChange={handleInputChange}
+                          className="w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-[#EA3359] focus:border-transparent appearance-none"
+                        >
+                          <option value="">Select a country</option>
+                          {countries.map((country) => (
+                            <option key={country} value={country}>
+                              {country}
+                            </option>
+                          ))}
+                        </select>
+                        <ChevronDown className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Trip Details */}
+                <div>
+                  <div className="flex items-center gap-2 mb-6">
+                    <Mountain className="w-5 h-5 text-[#EA3359]" />
+                    <h3 className="text-xl font-semibold text-gray-800">
+                      Trip Details
+                    </h3>
+                    <div className="h-px bg-[#EA3359] flex-1 ml-4"></div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Category */}
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-700">
+                        Category
+                      </label>
+                      <select
+                        name="category"
+                        value={formData.category}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-[#EA3359] focus:border-transparent appearance-none"
+                      >
+                        <option value="">Select a Category</option>
+                        <option value="Mountaineering">Mountaineering</option>
+                        <option value="Trekking">Trekking</option>
+                        <option value="Climbing">Climbing</option>
+                      </select>
+                    </div>
+
+                    {/* Sub-Category */}
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-700">
+                        Sub-Category
+                      </label>
+                      <select
+                        name="subCategory"
+                        value={formData.subCategory}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-[#EA3359] focus:border-transparent appearance-none"
+                      >
+                        <option value="">Select a Sub-Category</option>
+                        {mountaineeringSubCategories.map((sub) => (
+                          <option key={sub} value={sub}>
+                            {sub}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* Expedition */}
+                    <div className="md:col-span-2 space-y-2">
+                      <label className="text-sm font-medium text-gray-700">
+                        Expedition
+                      </label>
+                      <select
+                        name="expedition"
+                        value={formData.expedition}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-white text-gray-900 focus:ring-2 focus:ring-[#EA3359] focus:border-transparent appearance-none"
+                      >
+                        <option value="">Select an Expedition</option>
+                        {expeditions.map((exp) => (
+                          <option key={exp} value={exp}>
+                            {exp}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* Arrival Date */}
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-700">
+                        Arrival Date
+                      </label>
+                      <div className="relative">
+                        <Calendar className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                        <input
+                          type="date"
+                          name="arrivalDate"
+                          value={formData.arrivalDate}
+                          onChange={handleInputChange}
+                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#EA3359] focus:border-transparent transition-all text-gray-900"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Departure Date */}
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-700">
+                        Departure Date
+                      </label>
+                      <div className="relative">
+                        <Calendar className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
+                        <input
+                          type="date"
+                          name="departureDate"
+                          value={formData.departureDate}
+                          onChange={handleInputChange}
+                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#EA3359] focus:border-transparent transition-all text-gray-900"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Message */}
+                    <div className="md:col-span-2 space-y-2">
+                      <label className="text-sm font-medium text-gray-700">
+                        Message
+                      </label>
+                      <textarea
+                        name="message"
+                        value={formData.message}
+                        onChange={handleInputChange}
+                        rows={4}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#EA3359] focus:border-transparent transition-all resize-none text-gray-900"
+                        placeholder="Tell us about your trip preferences, experience level, or any special requirements..."
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Buttons */}
+                <div className="flex justify-end space-x-4 pt-6 border-t">
+                  <button
+                    type="button"
+                    onClick={() => setIsFormOpen(false)}
+                    className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleSubmit}
+                    className="px-8 py-3 bg-gradient-to-r from-[#EA3359] to-[#d62a33] text-white rounded-lg hover:shadow-lg transition-all duration-300 flex items-center gap-2 hover:scale-105"
+                  >
+                    <Send className="w-4 h-4" />
+                    Submit Request
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Mobile Menu Button */}
         <div className="lg:hidden flex items-center">
@@ -418,7 +756,14 @@ const Navbar = () => {
       >
         <div className="container mx-auto px-4 py-6">
           <div className="flex justify-between items-center mb-8">
-            <Image priority height={100} width={100} src="/logo1.png" alt="HighFive Adventures" className="h-8 w-8" />
+            <Image
+              priority
+              height={100}
+              width={100}
+              src="/logo1.png"
+              alt="HighFive Adventures"
+              className="h-8 w-8"
+            />
             <button
               onClick={toggleNav}
               className="text-white hover:text-[#FF4E58]"

@@ -16,9 +16,9 @@ import Itinerary from "../../../components/intineryBars/Itinery";
 import DatesAndPrices from "../../../components/intineryBars/DatesAndPrices";
 import RelatedTrips from "../../../components/tripGlance/RelatedTrips";
 import Image from "next/image";
+import Season from "../../../components/season/Season";
 
 const Page = () => {
-
   return (
     <div className="relative z-10 bg-white">
       {/* Hero Section */}
@@ -26,7 +26,7 @@ const Page = () => {
         <Image
           height={500}
           width={500}
-          src= "/flyimg/photo-1691215261305-8e9a8a45c2fa_14_11zon.webp"
+          src="/flyimg/photo-1691215261305-8e9a8a45c2fa_14_11zon.webp"
           alt="Hero"
           className="w-full h-full object-cover"
         />
@@ -38,7 +38,7 @@ const Page = () => {
       <Title />
 
       {/* Main Layout */}
-      <div className="relative z-20 w-full max-w-[1440px] mx-auto flex flex-col md:flex-row gap-6 px-4 md:px-8 lg:px-16 mt-8 pb-10 bg-white">
+      <div className="relative z-20 w-full mx-auto flex flex-col md:flex-row gap-6 px-4 md:px-8 lg:px-16 mt-8 pb-10 bg-white">
         {/* Left Sidebar */}
         <LeftBar />
 
@@ -54,7 +54,15 @@ const Page = () => {
               majestic and spiritually significant peak located in the Gorkha
               District of Nepal. Known as the "Mountain of the Spirit," its name
               is derived from the Sanskrit word Manasa, meaning soul or
-              intellect...
+              intellect. Towering above the rugged landscapes of the Himalayas,
+              Manaslu offers not only breathtaking natural beauty but also a
+              profound sense of peace and mysticism. The region surrounding the
+              mountain is home to ancient monasteries, traditional
+              Tibetan-influenced villages, and rich biodiversity, making it a
+              hidden gem for trekkers seeking both cultural immersion and
+              untouched alpine wilderness. Unlike more commercialized trekking
+              routes, the Manaslu Circuit provides a more remote and authentic
+              Himalayan experience.
             </p>
           </div>
 
@@ -65,6 +73,7 @@ const Page = () => {
           <RouteMap />
           <Itinerary />
           <Cost />
+          <Season />
           <DatesAndPrices />
           <TravellerReview />
           <Faq />

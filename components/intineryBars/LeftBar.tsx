@@ -2,7 +2,6 @@
 
 import {
   Map,
-  Eye,
   Compass,
   Landmark,
   Route,
@@ -12,17 +11,18 @@ import {
   CalendarDays,
   Users,
   HelpCircle,
+  CloudSun,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const tripSections = [
-  { label: "Overview", icon: Eye, color: "#EA3359" },
   { label: "Trip Glance", icon: Compass, color: "#14B8A6" },
   { label: "Major Highlights", icon: Landmark, color: "#F59E0B" },
   { label: "Route Overview", icon: Route, color: "#8B5CF6" },
   { label: "Route Map", icon: MapPinned, color: "#EF4444" },
   { label: "Itinerary", icon: CalendarRange, color: "#10B981" },
   { label: "Costs", icon: DollarSign, color: "#F97316" },
+  { label: "Season & Weather", icon: CloudSun, color: "#F97316" },
   { label: "Date & Prices", icon: CalendarDays, color: "#3B82F6" },
   { label: "Traveller Review", icon: Users, color: "#E11D48" },
   { label: "FAQs", icon: HelpCircle, color: "#6B7280" },

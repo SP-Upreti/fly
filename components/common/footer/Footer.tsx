@@ -25,16 +25,16 @@ const Footer = () => {
       {/* Main Content */}
       <div className="relative z-10 w-full px-4 sm:px-8 lg:px-24 pt-16 pb-10">
         {/* Hero Section */}
-        <div className=" mx-auto space-y-8">
+        <div className=" mx-auto space-y-5">
           {/* Logo */}
           <div className="flex items-center">
             <div className="relative h-12 sm:h-16 w-auto">
-              <Image 
-                src="/logo1.png" 
-                alt="Logo" 
-                fill
+              <Image
+                src="/logo1.png"
+                alt="Logo"
+                width={230}
+                height={110}
                 className="object-contain"
-                sizes="(max-width: 640px) 3rem, 4rem"
               />
             </div>
           </div>
@@ -49,6 +49,18 @@ const Footer = () => {
             Discover breathtaking adventures and create unforgettable memories
             with our expertly guided heroes.
           </p>
+          <div className="flex items-center gap-4">
+            <h2 className="uppercase text-2xl font-semibold text-zinc-200">
+              We accept
+            </h2>
+            <Image
+              height={120}
+              width={300}
+              src="/heroimages/payment.webp"
+              alt="Payment Methods"
+              className="w-40 h-20 opacity-80 hover:opacity-100 transition-opacity object-contain cursor-pointer"
+            />
+          </div>
 
           {/* CTA + Social */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-6">
@@ -72,7 +84,13 @@ const Footer = () => {
                   key={index}
                   className="flex items-center justify-center hover:scale-110 transition-transform cursor-pointer"
                 >
-                  <Image height={500} width={500} src={img} alt="Social Icon" className="w-7 h-7" />
+                  <Image
+                    height={500}
+                    width={500}
+                    src={img}
+                    alt="Social Icon"
+                    className="w-7 h-7"
+                  />
                 </div>
               ))}
             </div>

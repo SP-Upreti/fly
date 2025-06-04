@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { MessageSquare } from "lucide-react";
 import Image from "next/image";
+import Certificate from "../../../components/certificates/Certificate";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -203,8 +204,8 @@ const AboutUsPage = () => {
               {/* Our Story Section */}
               <div className="text-center max-w-4xl mx-auto">
                 <div className="text-3xl">
-                  <p 
-                    className="mb-4" 
+                  <p
+                    className="mb-4"
                     ref={(el: HTMLParagraphElement | null) => {
                       storyRefs.current[0] = el;
                     }}
@@ -213,8 +214,8 @@ const AboutUsPage = () => {
                     passionate mountaineers decided to share their love for
                     alpine landscapes with others.
                   </p>
-                  <p 
-                    className="mb-4" 
+                  <p
+                    className="mb-4"
                     ref={(el: HTMLParagraphElement | null) => {
                       storyRefs.current[1] = el;
                     }}
@@ -223,7 +224,7 @@ const AboutUsPage = () => {
                     experience, built this company on the principles of respect
                     for nature, safety, and transformative experiences.
                   </p>
-                  <p 
+                  <p
                     ref={(el: HTMLParagraphElement | null) => {
                       storyRefs.current[2] = el;
                     }}
@@ -295,6 +296,8 @@ const AboutUsPage = () => {
                   </div>
                 </div>
               </section>
+              {/* Certifications Section */}
+              <Certificate />
             </div>
           </div>
         </div>
