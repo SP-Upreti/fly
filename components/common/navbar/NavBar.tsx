@@ -93,7 +93,7 @@ const Navbar = () => {
 
   // Example mountaineering subcategories, replace or generate as needed
   const mountaineeringSubCategories = Object.keys(mountaineeringData).map(
-    (key) => mountaineeringData[key].title
+    (key) => mountaineeringData[key as keyof typeof mountaineeringData].title
   );
 
   const handleInputChange = (
@@ -476,16 +476,16 @@ const Navbar = () => {
         <div className="hidden md:block">
           <button
             onClick={() => setIsFormOpen(true)}
-            className="py-2 px-4 bg-[#EA3359] text-white flex items-center justify-center gap-4 rounded-full transition-all duration-300 hover:bg-[#d62a33] cursor-pointer animate-pulse"
+            className="btn cursor-pointer "
           >
-            Customize Your Trip
+            <div className="in">Customize Your Trip</div>
           </button>
         </div>
 
         {/* Modal */}
         {isFormOpen && (
           <div className="fixed top-0 left-1/2 right-0 flex items-center justify-center z-50">
-            <div className="bg-white rounded-l-2xl shadow-2xl max-w-4xl w-full h-screen overflow-y-auto">
+            <div className="bg-white rounded-l-2xl shadow-2xl w-full h-screen overflow-y-auto">
               {/* Header */}
               <div className="sticky top-0 bg-gradient-to-r from-[#EA3359] to-[#d62a33] text-white p-6 rounded-l-2xl z-10">
                 <div className="flex items-center justify-between">
@@ -758,11 +758,10 @@ const Navbar = () => {
           <div className="flex justify-between items-center mb-8">
             <Image
               priority
-              height={100}
-              width={100}
+              height={120}
+              width={140}
               src="/logo1.png"
               alt="HighFive Adventures"
-              className="h-8 w-8"
             />
             <button
               onClick={toggleNav}

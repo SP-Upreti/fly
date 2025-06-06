@@ -1,279 +1,198 @@
-import { useState, useEffect } from "react";
-import { ChevronLeft, ChevronRight, Star, Quote } from "lucide-react";
+"use client";
 
-const TestimonialsComponent = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+import { useRef, useState } from "react";
+import { Quote } from "lucide-react";
+import Title from "../title/Title";
 
-  const testimonials = [
-    {
-      id: 1,
-      name: "Isabelle",
-      role: "BA at Robin",
-      avatar:
-        "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=80&h=80&fit=crop&crop=face&auto=format",
-      text: "An enim nullam tempor gravida donec enim congue magna at pretium purus pretium ligula rutrum luctus risus diam eget risus varius blandit sit amet non magna.",
-      rating: 5,
-    },
-    {
-      id: 2,
-      name: "Mara Hilpert",
-      role: "Web Designer",
-      avatar:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&h=80&fit=crop&crop=face&auto=format",
-      text: "Exceptional service and attention to detail. The team went above and beyond to deliver exactly what we needed for our project.",
-      rating: 5,
-    },
-    {
-      id: 3,
-      name: "Alex Chen",
-      role: "Product Manager",
-      avatar:
-        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=80&h=80&fit=crop&crop=face&auto=format",
-      text: "Working with this team has been transformative for our business. Their expertise and professionalism are unmatched.",
-      rating: 5,
-    },
-    {
-      id: 4,
-      name: "Sarah Johnson",
-      role: "Marketing Director",
-      avatar:
-        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=80&h=80&fit=crop&crop=face&auto=format",
-      text: "Incredible results and seamless collaboration. They understood our vision and brought it to life perfectly.",
-      rating: 5,
-    },
-    {
-      id: 5,
-      name: "Michael Torres",
-      role: "Creative Director",
-      avatar:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&crop=face&auto=format",
-      text: "Outstanding creative vision and flawless execution. They brought our brand to life in ways we never imagined possible.",
-      rating: 5,
-    },
-    {
-      id: 6,
-      name: "Emily Rodriguez",
-      role: "Startup Founder",
-      avatar:
-        "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=80&h=80&fit=crop&crop=face&auto=format",
-      text: "Game-changing results that exceeded all expectations. Their strategic approach revolutionized our entire business model.",
-      rating: 5,
-    },
-  ];
+interface Testimonial {
+  id: number;
+  name: string;
+  role: string;
+  avatar: string;
+  text: string;
+}
 
-  // Auto-play functionality
-  useEffect(() => {
-    if (!isAutoPlaying) return;
+const testimonials: Testimonial[] = [
+  {
+    id: 1,
+    name: "Albert Mizuno",
+    role: "Founder of The Mizuno",
+    avatar: "https://i.pravatar.cc/150?img=1",
+    text: "We had a fantastic experience partnering with Trionn for our website. The communication and collaboration were excellent, resulting in a top-notch design and functionality.",
+  },
+  {
+    id: 2,
+    name: "Stephen Dash",
+    role: "Founder & CEO of Credible",
+    avatar: "https://i.pravatar.cc/150?img=2",
+    text: "The Trionn team is extremely reliable, professional and talented. It has been a great pleasure collaborating with them over many months.",
+  },
+  {
+    id: 3,
+    name: "Sarah Chen",
+    role: "CTO at TechFlow",
+    avatar: "https://i.pravatar.cc/150?img=3",
+    text: "Trionn delivered beyond our expectations. Their attention to detail and technical expertise helped us launch our platform 2 months ahead of schedule. The code quality was exceptional.",
+  },
+  {
+    id: 4,
+    name: "Michael Rodriguez",
+    role: "VP of Product at InnovateCorp",
+    avatar: "https://i.pravatar.cc/150?img=4",
+    text: "Working with Trionn was a game-changer for our startup. They understood our vision perfectly and built a scalable solution that grows with our business. Highly recommended!",
+  },
+  {
+    id: 5,
+    name: "Emily Johnson",
+    role: "Director of Marketing at GrowthLab",
+    avatar: "https://i.pravatar.cc/150?img=5",
+    text: "The team's creativity and technical skills are outstanding. They transformed our outdated website into a modern, high-performing platform that increased our conversions by 150%.",
+  },
+  {
+    id: 6,
+    name: "David Park",
+    role: "Founder of NextGen Solutions",
+    avatar: "https://i.pravatar.cc/150?img=6",
+    text: "Trionn's expertise in both design and development is rare to find. They delivered a beautiful, functional product that our users love. The project management was flawless.",
+  },
+  {
+    id: 7,
+    name: "Jessica Williams",
+    role: "Head of Digital at ModernCorp",
+    avatar: "https://i.pravatar.cc/150?img=7",
+    text: "Outstanding work! The team delivered exactly what we envisioned and more. Their professionalism and expertise made the entire process seamless.",
+  },
+  {
+    id: 8,
+    name: "James Thompson",
+    role: "CEO of InnovateNow",
+    avatar: "https://i.pravatar.cc/150?img=8",
+    text: "The quality of work and attention to detail is remarkable. They transformed our digital presence completely and our customers love the new experience.",
+  },
+];
 
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    }, 4000);
+export default function TestimonialsPage() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, scrollLeft: 0 });
 
-    return () => clearInterval(interval);
-  }, [isAutoPlaying, testimonials.length]);
-
-  const nextTestimonial = () => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    setIsAutoPlaying(false);
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!containerRef.current) return;
+    setIsDragging(true);
+    setDragStart({
+      x: e.pageX - containerRef.current.offsetLeft,
+      scrollLeft: containerRef.current.scrollLeft,
+    });
   };
 
-  const prevTestimonial = () => {
-    setCurrentIndex(
-      (prev) => (prev - 1 + testimonials.length) % testimonials.length
-    );
-    setIsAutoPlaying(false);
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging || !containerRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - containerRef.current.offsetLeft;
+    const walk = (x - dragStart.x) * 1.5;
+    containerRef.current.scrollLeft = dragStart.scrollLeft - walk;
   };
 
-  const goToSlide = (index) => {
-    setCurrentIndex(index);
-    setIsAutoPlaying(false);
+  const handleMouseUp = () => {
+    setIsDragging(false);
   };
 
-  const getVisibleTestimonials = () => {
-    const visible = [];
-    for (let i = 0; i < 3; i++) {
-      const index = (currentIndex + i) % testimonials.length;
-      visible.push({ ...testimonials[index], slideIndex: i });
-    }
-    return visible;
+  const handleMouseLeave = () => {
+    setIsDragging(false);
   };
 
   return (
-    <div className="relative z-10 min-h-screen bg-black/80 py-20 px-4">
-      <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
-        <div className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 bg-gray-900 border border-gray-700 rounded-full px-6 py-2 mb-8">
-            <Star
-              className="w-4 h-4 fill-current"
-              style={{ color: "#E7000B" }}
-            />
-            <span className="text-gray-300 text-sm font-medium">
-              Trip Advisor
-            </span>
-          </div>
-
-          <h2 className="text-6xl md:text-7xl font-bold text-white mb-6 leading-tight">
-            What our happy clients say
-          </h2>
-
-          <p className="text-gray-400 text-xl mb-10 max-w-2xl mx-auto">
-            Discover the experiences that drive our passion for excellence
-          </p>
-
-          <button
-            className="px-8 py-4 rounded-full text-white font-semibold border-2 transition-all duration-300 hover:scale-105"
-            style={{
-              backgroundColor: "#E7000B",
-              borderColor: "#E7000B",
-            }}
-          >
-            View More Reviews
-            <ChevronRight className="inline-block ml-2 w-5 h-5" />
-          </button>
+    <div className="relative z-10 min-h-screen bg-black/80 text-white">
+      {/* Header Section */}
+      <div className="py-20 px-4">
+        <div className="max-w-7xl mx-auto text-center">
+          <Title
+            title={"What Our Client Say"}
+            discription="Read what our clients say about us"
+          />
         </div>
+      </div>
 
-        {/* Testimonials Slider */}
-        <div className="relative">
-          <div className="flex items-center justify-center gap-8 min-h-[500px]">
-            {getVisibleTestimonials().map((testimonial, index) => (
+      {/* Testimonials Section */}
+      <div className="pb-20">
+        <div
+          className={`overflow-x-auto overflow-y-hidden scrollbar-hide ${
+            isDragging ? "cursor-grabbing" : "cursor-grab"
+          } select-none`}
+          ref={containerRef}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+          style={{
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+            WebkitOverflowScrolling: "touch",
+          }}
+        >
+          <div className="flex gap-6 px-6 w-max py-4">
+            {testimonials.map((testimonial) => (
               <div
-                key={`${testimonial.id}-${currentIndex}`}
-                className={`relative transition-all duration-700 ease-out ${
-                  index === 1
-                    ? "scale-110 z-20 opacity-100"
-                    : index === 0
-                    ? "scale-90 -translate-x-12 z-10 opacity-60"
-                    : "scale-90 translate-x-12 z-10 opacity-60"
-                }`}
+                key={testimonial.id}
+                className="group w-[480px] h-[380px] bg-gradient-to-br from-gray-800/50 to-gray-900/80 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-10 flex flex-col justify-between shadow-2xl transition-all duration-500 hover:scale-[1.02] hover:shadow-3xl hover:border-gray-600/50 hover:bg-gradient-to-br hover:from-gray-700/50 hover:to-gray-800/80"
               >
-                <div className="relative bg-gray-900 rounded-3xl p-8 w-96 h-auto border border-gray-700 shadow-2xl transition-all duration-500 hover:border-gray-600">
-                  {/* Quote Icon */}
-                  <div className="absolute -top-4 -left-4">
-                    <div
-                      className="p-3 rounded-full shadow-lg"
-                      style={{ backgroundColor: "#E7000B" }}
-                    >
-                      <Quote className="w-6 h-6 text-white" />
-                    </div>
+                <div className="relative">
+                  <div className="absolute -top-4 -left-4 bg-[#E63258] p-3 rounded-full shadow-xl group-hover:shadow-2xl group-hover:scale-110 transition-all duration-300">
+                    <Quote className="text-white w-5 h-5" />
                   </div>
-
-                  {/* Stars */}
-                  <div className="flex justify-center mb-6 gap-1">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-5 h-5 fill-current"
-                        style={{ color: "#EAB308" }}
-                      />
-                    ))}
+                  <div className="mt-10">
+                    <p className="text-gray-300 text-lg leading-relaxed font-light group-hover:text-gray-200 transition-colors duration-300">
+                      "{testimonial.text}"
+                    </p>
                   </div>
+                </div>
 
-                  {/* Testimonial Text */}
-                  <p className="text-gray-300 text-center leading-relaxed mb-8 text-lg">
-                    "{testimonial.text}"
-                  </p>
-
-                  {/* Author Info */}
-                  <div className="flex flex-col items-center">
-                    <div className="relative mb-4">
-                      <img
-                        src={testimonial.avatar}
-                        alt={testimonial.name}
-                        className="w-16 h-16 rounded-full object-cover ring-4 ring-gray-700 shadow-2xl transition-all duration-500"
-                      />
-                    </div>
-                    <h4 className="font-bold text-white text-lg mb-1">
+                <div className="flex items-center space-x-4 mt-6">
+                  <div className="relative">
+                    <img
+                      src={testimonial.avatar}
+                      alt={testimonial.name}
+                      className="w-16 h-16 rounded-full ring-2 ring-[#E63258] object-cover shadow-lg transition-all duration-300"
+                      draggable={false}
+                    />
+                  </div>
+                  <div className="text-left">
+                    <h4 className="text-white font-semibold text-lg mb-1 group-hover:text-gray-100 transition-colors duration-300">
                       {testimonial.name}
                     </h4>
-                    <p className="text-gray-400 text-sm">{testimonial.role}</p>
+                    <p className="text-gray-400 text-sm group-hover:text-gray-300 transition-colors duration-300">
+                      {testimonial.role}
+                    </p>
                   </div>
                 </div>
               </div>
             ))}
           </div>
-
-          {/* Navigation Arrows */}
-          <button
-            onClick={prevTestimonial}
-            className="absolute left-0 top-1/2 transform -translate-y-1/2 p-4 rounded-full bg-gray-900 border border-gray-700 text-white transition-all duration-300 z-30"
-            style={{
-              ":hover": {
-                backgroundColor: "#E7000B",
-                borderColor: "#E7000B",
-              },
-            }}
-            onMouseEnter={(e) => {
-              e.target.style.backgroundColor = "#E7000B";
-              e.target.style.borderColor = "#E7000B";
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.backgroundColor = "";
-              e.target.style.borderColor = "";
-            }}
-          >
-            <ChevronLeft className="w-6 h-6" />
-          </button>
-
-          <button
-            onClick={nextTestimonial}
-            className="absolute right-0 top-1/2 transform -translate-y-1/2 p-4 rounded-full bg-gray-900 border border-gray-700 text-white transition-all duration-300 z-30"
-            onMouseEnter={(e) => {
-              e.target.style.backgroundColor = "#E7000B";
-              e.target.style.borderColor = "#E7000B";
-            }}
-            onMouseLeave={(e) => {
-              e.target.style.backgroundColor = "";
-              e.target.style.borderColor = "";
-            }}
-          >
-            <ChevronRight className="w-6 h-6" />
-          </button>
         </div>
 
-        {/* Dots Indicator */}
-        <div className="flex justify-center space-x-3 mt-12">
-          {testimonials.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`transition-all duration-300 rounded-full ${
-                index === currentIndex
-                  ? "w-12 h-3 shadow-lg"
-                  : "w-3 h-3 bg-gray-600 hover:bg-gray-500"
-              }`}
-              style={
-                index === currentIndex ? { backgroundColor: "#E7000B" } : {}
-              }
-            />
-          ))}
-        </div>
-
-        {/* Auto-play toggle */}
-        <div className="flex justify-center mt-8">
-          <button
-            onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 border ${
-              isAutoPlaying
-                ? "text-white border-gray-600"
-                : "text-gray-400 border-gray-700"
-            }`}
-            style={
-              isAutoPlaying
-                ? {
-                    backgroundColor: "#E7000B",
-                    borderColor: "#E7000B",
-                  }
-                : {}
-            }
-          >
-            {isAutoPlaying ? "Pause Auto-play" : "Resume Auto-play"}
-          </button>
+        {/* Scroll Indicator */}
+        <div className="text-center mt-12">
+          <div className="inline-flex items-center gap-3 px-4 py-2 bg-gray-800/50 rounded-full border border-gray-700/50 backdrop-blur-sm">
+            <div className="flex gap-1">
+              <div className="w-1 h-1 bg-gray-500 rounded-full animate-pulse"></div>
+              <div className="w-1 h-1 bg-gray-500 rounded-full animate-pulse delay-75"></div>
+              <div className="w-1 h-1 bg-gray-500 rounded-full animate-pulse delay-150"></div>
+            </div>
+            <p className="text-gray-400 text-sm">Drag to explore</p>
+          </div>
         </div>
       </div>
+
+      {/* Custom scrollbar styles */}
+      <style jsx>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
     </div>
   );
-};
-
-export default TestimonialsComponent;
+}

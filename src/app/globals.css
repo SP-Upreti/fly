@@ -14,8 +14,8 @@ body {
 }
 
 .stroke-text {
-  -webkit-text-stroke: 3px #D62A4E;
-  text-stroke: 3px #D62A4E; /* for non-webkit fallback */
+  -webkit-text-stroke: 3px #fff2ffd6;
+  text-stroke: 3px #fff2ffd6; /* for non-webkit fallback */
 }
 
 
@@ -69,3 +69,50 @@ body {
     transform: translateX(0);
   }
 }
+
+.btn{
+  padding: 0.1rem;
+  border-radius: 50px;
+  border: none;
+  position: relative;
+  background: transparent;
+  cursor: pointer;
+  overflow: hidden;
+  
+}
+
+.in{
+  padding: 0.6rem 1.4rem;
+   border-radius: 50px;
+  background: #E63258;
+  font-size: 1rem;
+  color: white;
+  position: relative;
+  z-index: 1;
+  transition: all 0.5s ease;
+  
+}
+
+.btn:hover .in{
+  background: #fff;
+  color: #E63258;
+  box-shadow: 0 0 10px rgba(230, 50, 88, 0.5);
+}
+
+ .btn::after{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2rem;
+  height: 15rem;
+  background: #fff;
+  transform: translate(-50%, -50%) rotate(45deg);
+  animation: animate 2s linear infinite;
+} 
+
+@keyframes animate {
+  100%{
+    transform : translate(-50%, -50%) rotate(225deg);
+  }
+} 

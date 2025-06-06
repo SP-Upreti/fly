@@ -1,73 +1,94 @@
 "use client";
 
-import React from "react";
-import Title from "../../components/title/Title"; // If unused, consider removing
 import Image from "next/image";
+import { FiAward, FiShield, FiUsers, FiClock } from "react-icons/fi";
+import Title from "../title/Title";
+
+type Feature = {
+  id: number;
+  icon: JSX.Element;
+  title: string;
+  description: string;
+};
 
 const CallToAction = () => {
+  const features: Feature[] = [
+    {
+      id: 1,
+      icon: <FiAward size={28} strokeWidth={2} />,
+      title: "Best Price Guaranteed",
+      description:
+        "We promise unbeatable pricing on all services, ensuring you get the best value without compromising quality.",
+    },
+    {
+      id: 2,
+      icon: <FiShield size={28} strokeWidth={2} />,
+      title: "Certified & Trusted Service",
+      description:
+        "Our certified team provides reliable and safe services prioritizing your confidence and peace of mind.",
+    },
+    {
+      id: 3,
+      icon: <FiUsers size={28} strokeWidth={2} />,
+      title: "Professional Rescue Team",
+      description:
+        "Our experienced rescue team is available 24/7, trained to handle emergencies efficiently.",
+    },
+    {
+      id: 4,
+      icon: <FiClock size={28} strokeWidth={2} />,
+      title: "24/7 Customer Service",
+      description:
+        "Round-the-clock support team to assist, guide, and resolve any issues during your journey.",
+    },
+  ];
+
   return (
-    <div className="relative z-10 w-full py-16 md:py-24 bg-black/80 text-white">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-12 md:gap-24 items-center px-4 md:px-8">
-        {/* Left Content Section */}
-        <div className="w-full md:w-1/2 text-center md:text-left bg-zinc-900/50 p-6 rounded-lg shadow-lg">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 leading-snug md:leading-tight">
-            Why Choose Flyeast Nepal For Your Next Adventures?
-          </h2>
-          <p className="text-base sm:text-lg mb-8 leading-relaxed">
-            An enhanced safety record provides peace of mind while you explore
-            the breathtaking heights of the Himalayas. Experience unparalleled
-            service with our team of seasoned professionals dedicated to making
-            your journey memorable.
-          </p>
+    <section className="relative z-10 bg-black/80 w-full h-screen text-white overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <Image
+          src="/heroimages/faded.png"
+          alt="Adventure"
+          fill
+          priority
+          className="object-cover"
+        />
+      </div>
 
-          {/* Feature List */}
-          <div className="space-y-4 mb-10">
-            {["Customize Your Trip", "Fun Tour", "Adventure Journey"].map(
-              (feature, index) => (
-                <div
-                  className="flex items-center justify-center md:justify-start"
-                  key={index}
-                >
-                  <div className="w-7 h-7 rounded-full bg-[#FF4E58] flex items-center justify-center mr-4">
-                    <svg
-                      className="w-4 h-4 text-white"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  </div>
-                  <span className="text-sm sm:text-base md:text-lg">
-                    {feature}
-                  </span>
-                </div>
-              )
-            )}
-          </div>
-
-          <button className="bg-[#FF4E58] text-white text-sm sm:text-base md:text-lg font-semibold py-3 px-6 sm:px-8 rounded-md hover:bg-red-600 transition duration-300">
-            Read more
-          </button>
+      {/* Content */}
+      <div className="relative z-10 h-full w-full px-6 md:px-12 flex flex-col justify-center items-center text-center">
+        <div className="max-w-4xl space-y-6">
+          <Title
+            title="Why Choose Flyeast Nepal?"
+            discription="An enhanced safety record provides peace of mind while you explore the breathtaking heights of the Himalayas."
+          />
         </div>
 
-        {/* Right Image Section */}
-        <div className="w-full md:w-1/2 relative max-h-[400px] sm:max-h-[500px] rounded-lg overflow-hidden">
-          <div className="w-full h-[300px] sm:h-[400px] md:h-[500px]">
-            <Image
-            height={500}
-            width={500}
-              src="https://admin.ntb.gov.np/image-cache/ebc_tk_adventure_2-1624450765.jpeg?p=main&s=1f72965258be9625bee4886c373424ad"
-              alt="Adventure Image"
-              className="w-full h-full object-cover rounded-lg shadow-lg"
-            />
-          </div>
+        {/* Feature Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 max-w-5xl w-full">
+          {features.map((feature) => (
+            <div
+              key={feature.id}
+              className="flex items-start gap-4 p-5 bg-white/5 rounded-xl border border-white/10 backdrop-blur-sm"
+            >
+              {/* Icon */}
+              <div className="p-3 rounded-full border border-white/20 text-[#E63258] bg-red-300/10 flex items-center justify-center">
+                {feature.icon}
+              </div>
+
+              {/* Text */}
+              <div className="text-left">
+                <h3 className="text-xl font-semibold">{feature.title}</h3>
+                <p className="text-sm text-gray-300 mt-1">
+                  {feature.description}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
