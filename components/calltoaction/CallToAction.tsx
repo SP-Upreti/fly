@@ -44,7 +44,7 @@ const CallToAction = () => {
   ];
 
   return (
-    <section className="relative z-10 bg-black/80 w-full h-screen text-white overflow-hidden">
+    <section className="relative z-10 bg-black/80 w-full h-screen text-white ">
       {/* Background Image */}
       <div className="absolute inset-0 w-full h-full z-0">
         <Image
