@@ -6,8 +6,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
-  title: "Flyeast",
-  description: "Developed by webx",
+  title: "Flyeast Nepal",
+  description: "Top trekking company in nepal",
 };
 
 export default function RootLayout({
@@ -17,10 +17,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <NavBar />
       <body>
-        <NavBar />
-        <main className="grain"></main>
-        {children}
+        <main className="min-h-screen">{children}</main>
         <Footer />
         <ToastContainer />
       </body>

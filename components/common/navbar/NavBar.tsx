@@ -340,6 +340,7 @@ const Navbar = () => {
               </button>
             </Link>
           </div>
+          
           {/* Category Button */}
           {category.map((category) => (
             <div key={category._id} className="relative">

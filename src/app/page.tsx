@@ -30,7 +30,7 @@ const Page = () => {
   }
 
   return (
-    <div>
+    <div className="">
       <Home />
     </div>
   );

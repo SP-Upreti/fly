@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Sen:wght@400;700;800&display=swap');
 body {
   font-family: 'Sen', sans-serif;
+  background: black;
 }
 
 
@@ -23,7 +24,7 @@ body {
 
 /* globals.css */
 /* Grain overlay effect */
-.grain {
+/* .grain {
   position: fixed;
   top: 0;
   left: 0;
@@ -46,7 +47,7 @@ body {
   opacity: 0.6;
   pointer-events: none;
   animation: noise 0s steps(2) infinite;
-}
+} */
 
 /* Grain animation */
 @keyframes noise {

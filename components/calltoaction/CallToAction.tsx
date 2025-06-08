@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { FiAward, FiShield, FiUsers, FiClock } from "react-icons/fi";
 import Title from "../title/Title";
+import { JSX } from "react";
 
 type Feature = {
   id: number;

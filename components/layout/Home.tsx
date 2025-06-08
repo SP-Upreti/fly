@@ -2,12 +2,13 @@
 
 import React, { Suspense, lazy } from "react";
 import dynamic from "next/dynamic";
+import Divider from "../divider/page";
 
 // Dynamically import components that might access browser APIs with SSR disabled
 const Hero = dynamic(() => import("../HeroComponents/Hero"), { ssr: false });
 const About = dynamic(() => import("../about/page"), { ssr: false });
-const TrekCard = dynamic(() => import("../card/TrekCard"), { ssr: false });
-const Popular = dynamic(() => import("../card/Popular"), { ssr: false });
+const TrekCard = dynamic(() => import("../trekking/TrekCard"), { ssr: false });
+const Popular = dynamic(() => import("../trekking/Popular"), { ssr: false });
 const ActivityCarousel = dynamic(() => import("../layout/Activity"), {
   ssr: false,
 });
@@ -31,13 +32,16 @@ const LoadingSpinner = () => (
 const Home = () => {
   // Use Suspense to show loading state for dynamically imported components
   return (
-    <div>
+    <div className="min-h-screen">
       <Suspense fallback={<LoadingSpinner />}>
         <Hero />
       </Suspense>
 
       <Suspense fallback={<LoadingSpinner />}>
         <About />
+      </Suspense>
+      <Suspense fallback={<LoadingSpinner />}>
+        <Divider />
       </Suspense>
 
       <Suspense fallback={<LoadingSpinner />}>
@@ -50,6 +54,10 @@ const Home = () => {
 
       <Suspense fallback={<LoadingSpinner />}>
         <CallToAction />
+      </Suspense>
+
+      <Suspense fallback={<LoadingSpinner />}>
+        <Divider />
       </Suspense>
 
       <Suspense fallback={<LoadingSpinner />}>

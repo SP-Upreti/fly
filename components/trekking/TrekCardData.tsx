@@ -8,7 +8,7 @@ export const trek = [
     rating: "2.0",
     reviews: "234",
     location: "Nepal",
-    duration: "2 Hours",
+    duration: "21 Days",
     description:
       "Experience the beauty of nature with our expertly guided trek through stunning landscapes and cultural wonders.",
   },

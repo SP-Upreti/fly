@@ -7,37 +7,37 @@ import useEmblaCarousel from "embla-carousel-react";
 const cardsData = [
   {
     id: 1,
-    src: "https://cdn.pixabay.com/photo/2022/01/17/06/38/altai-6943982_1280.jpg",
+    src: "https://cdn.pixabay.com/photo/2023/01/04/08/27/nature-7696147_1280.jpg",
     alt: "Mountain View 1",
   },
   {
     id: 2,
-    src: "https://cdn.pixabay.com/photo/2021/08/27/18/50/water-6579313_1280.jpg",
+    src: "https://cdn.pixabay.com/photo/2018/04/07/01/44/mountain-3297562_1280.jpg",
     alt: "Mountain View 2",
   },
   {
     id: 3,
-    src: "https://cdn.pixabay.com/photo/2021/08/01/17/31/path-6514885_1280.jpg",
+    src: "https://cdn.pixabay.com/photo/2019/01/01/10/19/everest-base-camp-3906487_1280.jpg",
     alt: "Mountain View 3",
   },
   {
     id: 4,
-    src: "https://cdn.pixabay.com/photo/2021/07/08/03/55/mount-everest-6395759_1280.jpg",
+    src: "https://cdn.pixabay.com/photo/2020/02/02/05/35/himalaya-4812051_1280.jpg",
     alt: "Mountain View 4",
   },
   {
     id: 5,
-    src: "https://cdn.pixabay.com/photo/2018/12/24/22/19/camping-3893587_1280.jpg",
+    src: "https://cdn.pixabay.com/photo/2020/02/02/05/35/himalaya-4812050_1280.jpg",
     alt: "Mountain View 5",
   },
   {
     id: 6,
-    src: "https://cdn.pixabay.com/photo/2019/06/08/17/40/landscape-4260630_1280.jpg",
+    src: "https://cdn.pixabay.com/photo/2021/02/23/11/06/mountains-6043079_1280.jpg",
     alt: "Mountain View 6",
   },
   {
     id: 7,
-    src: "https://cdn.pixabay.com/photo/2022/06/15/17/28/mountain-7264352_1280.jpg",
+    src: "https://cdn.pixabay.com/photo/2023/01/31/08/53/mountain-7757483_1280.jpg",
     alt: "Mountain View 7",
   },
 ];
@@ -122,22 +122,25 @@ const Hero = () => {
       )}
 
       {/* Top Gradient */}
-      <div className="absolute inset-x-0 top-0 h-[20vh] bg-gradient-to-b from-black/70 z-50" />
+      <div className="absolute inset-x-0 top-0 h-[20vh] bg-gradient-to-b from-black/50 z-50" />
 
       {/* Hero Title Text */}
-      <div className="absolute top-[25%] md:top-[40%] left-4 sm:left-10 md:left-20 z-50 flex flex-col space-y-6 max-w-[90%] sm:max-w-2xl">
-        <h2 className="text-white text-5xl md:text-7xl lg:text-[7vw] font-bold uppercase leading-tight">
-          Discover <br />
-          The Nature
+      <div className="absolute top-[25%] md:top-[55%] left-4 sm:left-10 md:left-20 z-50 flex flex-col space-y-2 max-w-[90%] sm:max-w-2xl">
+        <h2 className="text-white text-4xl md:text-7xl lg:text-[4vw] font-bold uppercase leading-tighter">
+          Reconnect with the Natural World
         </h2>
+        <p className="text-white text-xl pl-2">Let the mountain tell your story.</p>
+        <button className="mt-4 w-fit text-red-400 rounded-full border-2 bg-white border-white px-6 py-2 hover:bg-white hover:text-red-400">
+          Explore Now
+        </button>
       </div>
 
       {/* Centered Nepal Text */}
-      <div className="absolute inset-0 z-50 flex items-center justify-center px-4">
+      {/* <div className="absolute inset-0 z-50 flex items-center justify-center px-4">
         <h1 className="text-[28vw] sm:text-[18vw] md:text-[20vw] lg:text-[22vw] xl:text-[25vw] font-bold uppercase text-transparent stroke-text tracking-widest">
           Nepal
         </h1>
-      </div>
+      </div> */}
 
       {/* Bottom Carousel */}
       <div className="absolute bottom-14 sm:bottom-16 right-0 z-50 w-[90vw] sm:w-[600px] overflow-hidden px-4">
@@ -165,22 +168,21 @@ const Hero = () => {
             ))}
           </div>
         </div>
-      </div>
-
-      {/* Navigation Arrows */}
-      <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center space-x-4">
-        <button
-          onClick={scrollPrev}
-          className="p-2 sm:p-3 bg-white/20 hover:bg-white/30 text-white rounded-full backdrop-blur transition-all duration-300 hover:scale-110"
-        >
-          <ArrowLeft size={20} className="sm:size-6" />
-        </button>
-        <button
-          onClick={scrollNext}
-          className="p-2 sm:p-3 bg-white/20 hover:bg-white/30 text-white rounded-full backdrop-blur transition-all duration-300 hover:scale-110"
-        >
-          <ArrowRight size={20} className="sm:size-6" />
-        </button>
+        {/* Navigation Arrows */}
+        <div className="absolute -bottom-4 sm:hidden flex items-center space-x-4">
+          <button
+            onClick={scrollPrev}
+            className="p-2 sm:p-3 bg-white/20 hover:bg-white/30 text-white rounded-full backdrop-blur transition-all duration-300 hover:scale-110"
+          >
+            <ArrowLeft size={20} className="sm:size-6" />
+          </button>
+          <button
+            onClick={scrollNext}
+            className="p-2 sm:p-3 bg-white/20 hover:bg-white/30 text-white rounded-full backdrop-blur transition-all duration-300 hover:scale-110"
+          >
+            <ArrowRight size={20} className="sm:size-6" />
+          </button>
+        </div>
       </div>
 
       {/* Pagination Dots */}

@@ -144,7 +144,7 @@ const ActivityCarousel: React.FC = () => {
 
   return (
     <div
-      className="relative w-full bg-black/80 py-12 pl-4 sm:pl-8 lg:pl-18 overflow-hidden no-scrollbar text-white z-10"
+      className="relative w-full bg-black/80 py-12 pl-4 sm:pl-8 lg:pl-18 overflow-hidden no-scrollbar mt-20 text-white z-10"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
