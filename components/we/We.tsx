@@ -1,54 +1,5 @@
-// Install gsap
-// npm install gsap
-
-import { useLayoutEffect, useRef } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
-
-const We = () => {
-  const containerRef = useRef(null);
-  const contentRef = useRef(null);
-
-  useLayoutEffect(() => {
-    gsap.fromTo(
-      contentRef.current,
-      { y: 200 },
-      {
-        y: "-140%", // 30% slower
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top bottom",
-          end: "bottom top",
-          scrub: 2,
-        },
-      }
-    );
-  });
-
-  return (
-    <section
-      ref={containerRef}
-      className="h-[120vh] overflow-hidden bg-black text-white flex items-center justify-center p-10"
-    >
-      <div className="flex w-full gap-3">
-        <div className="w-1/3 relative text-end">
-          <div className="sticky top-24 -translate-y-[3rem] text-5xl font-semibold">we</div>
-        </div>
-        <div className="w-2/3 space-y-4" ref={contentRef}>
-          {phrases.map((text, index) => (
-            <div key={index} className="text-5xl font-semibold">
-              {text}
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-export default We
+import React, { useRef } from "react";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 
 const phrases = [
   "welcome with open hearts.",
@@ -57,3 +8,50 @@ const phrases = [
   "share the beauty of Nepal.",
 ];
 
+const We = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: false });
+
+  // Scroll animation for "we"
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+
+  // Transform the scroll to move slower (parallax effect)
+  const y = useTransform(scrollYProgress, [0, 1], [0, 230]);
+
+  return (
+    <section className="h-[120vh] bg-black text-white flex items-center justify-center p-10">
+      <div className="flex w-full gap-3">
+        {/* Left "we" with slower scroll motion */}
+        <div className="w-1/3 relative text-end -translate-y-4">
+          <motion.div
+            style={{ y }}
+            className="text-5xl font-semibold"
+          >
+            we
+          </motion.div>
+        </div>
+
+        {/* Right scroll content */}
+        <div className="w-2/3 space-y-4" ref={ref}>
+          {phrases.map((text, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.2 }}
+              viewport={{ once: true }}
+              className="text-5xl font-semibold"
+            >
+              {text}
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default We;

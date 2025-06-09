@@ -1,34 +1,30 @@
 "use client";
 
-import React, { Suspense, lazy } from "react";
+import React, { Suspense } from "react";
 import dynamic from "next/dynamic";
-import Divider from "../divider/divider";
+
+const GridImages = dynamic(() => import("../divider/divider"), {
+  ssr: false
+})
+
 import We from "../we/We";
 
-// Dynamically import components that might access browser APIs with SSR disabled
-
-// 👇 Dynamically import Hero and disable SSR
+//  Only dynamically import browser-dependent components
 const Hero = dynamic(() => import("../HeroComponents/Hero"), {
   ssr: false,
   loading: () => <div className="min-h-screen flex items-center justify-center">Loading Hero...</div>,
 });
-const About = dynamic(() => import("../about/page"), { ssr: false });
-const TrekCard = dynamic(() => import("../trekking/TrekCard"), { ssr: false });
-const Popular = dynamic(() => import("../trekking/Popular"), { ssr: false });
-const ActivityCarousel = dynamic(() => import("../layout/Activity"), {
-  ssr: false,
-});
-const Book = dynamic(() => import("../layout/Book"), { ssr: false });
-const Testimonial = dynamic(() => import("../testimonials/Testimonial"), {
-  ssr: false,
-});
-const Advice = dynamic(() => import("../advice/Advice"), { ssr: false });
-// const WhatWeDo = dynamic(() => import("../whatwedo/WhatWeDo"), { ssr: false });
-const CallToAction = dynamic(() => import("../calltoaction/CallToAction"), {
-  ssr: false,
-});
 
-// Loading component
+// Others can be imported normally unless they use `window`, `document`, etc.
+import About from "../about/page";
+import TrekCard from "../trekking/TrekCard";
+import Popular from "../trekking/Popular";
+import ActivityCarousel from "../layout/Activity";
+import Book from "../layout/Book";
+import Testimonial from "../testimonials/Testimonial";
+import Advice from "../advice/Advice";
+import CallToAction from "../calltoaction/CallToAction";
+
 const LoadingSpinner = () => (
   <div className="flex items-center justify-center min-h-[50vh]">
     <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#FF4E58]"></div>
@@ -36,84 +32,57 @@ const LoadingSpinner = () => (
 );
 
 const Home = () => {
-  // Use Suspense to show loading state for dynamically imported components
   return (
     <div className="min-h-screen">
       <Suspense fallback={<LoadingSpinner />}>
         <Hero />
       </Suspense>
 
-      <Suspense fallback={<LoadingSpinner />}>
-        <About />
-      </Suspense>
-      <Suspense fallback={<LoadingSpinner />}>
-        <Divider
-          panels={[
-            {
-              base: "/divider-image/lang2.jpg",
-              overlay: "/divider-image/lang3.jpg",
-            },
-            {
-              base: "/divider-image/lang1.jpg",
-              overlay: "/divider-image/lang5.jpg",
-            },
-            {
-              base: "/logo_banner2.png",
-              overlay: "/divider-image/lang1.jpg",
-            },
-          ]}
-        />
-      </Suspense>
-      <Suspense fallback={<LoadingSpinner />}>
-        <We />
-      </Suspense>
+      <About />
 
-      <Suspense fallback={<LoadingSpinner />}>
-        <TrekCard />
-      </Suspense>
+      <GridImages
+        panels={[
+          {
+            base: "/divider-image/lang2.jpg",
+            overlay: "/divider-image/lang3.jpg",
+          },
+          {
+            base: "/divider-image/lang1.jpg",
+            overlay: "/divider-image/lang5.jpg",
+          },
+          {
+            base: "/logo_banner2.png",
+            overlay: "/divider-image/lang1.jpg",
+          },
+        ]}
+      />
 
-      <Suspense fallback={<LoadingSpinner />}>
-        <Popular />
-      </Suspense>
+      <We />
+      <TrekCard />
+      <Popular />
+      <CallToAction />
 
-      <Suspense fallback={<LoadingSpinner />}>
-        <CallToAction />
-      </Suspense>
+      <GridImages
+        panels={[
+          {
+            base: "/divider-image/lang2.jpg",
+            overlay: "/divider-image/lang3.jpg",
+          },
+          {
+            base: "/divider-image/lang1.jpg",
+            overlay: "/divider-image/lang5.jpg",
+          },
+          {
+            base: "/divider-image/lang7.jpg",
+            overlay: "/logo.png",
+          },
+        ]}
+      />
 
-      <Suspense fallback={<LoadingSpinner />}>
-        <Divider
-          panels={[
-            {
-              base: "/divider-image/lang2.jpg",
-              overlay: "/divider-image/lang3.jpg",
-            },
-            {
-              base: "/divider-image/lang1.jpg",
-              overlay: "/divider-image/lang5.jpg",
-            },
-            {
-              base: "/divider-image/lang7.jpg",
-              overlay: "/logo.png",
-            },
-          ]}
-        />
-      </Suspense>
-
-      <Suspense fallback={<LoadingSpinner />}>
-        <ActivityCarousel />
-      </Suspense>
-
-      <Suspense fallback={<LoadingSpinner />}>
-        <Book />
-      </Suspense>
-
-      <Suspense fallback={<LoadingSpinner />}>
-        <Testimonial />
-      </Suspense>
-
-      <Suspense fallback={<LoadingSpinner />}>
-        <Advice />
-      </Suspense>
+      <ActivityCarousel />
+      <Book />
+      <Testimonial />
+      <Advice />
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import ScrollTrigger from "gsap/ScrollTrigger";
 
@@ -11,37 +11,65 @@ type HeroSectionProps = {
 const HeroSection: React.FC<HeroSectionProps> = ({ panels }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
+  useLayoutEffect(() => {
+    let ctx = gsap.context(() => {
       const overlays = gsap.utils.toArray<HTMLDivElement>(".overlay-img");
 
       // Set initial state
       gsap.set(overlays, { yPercent: 0 });
 
-      // Create a master timeline for all animations
+      // Create timeline
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top top",   // When top of container hits viewport top
-          end: "+=100%",      // Scroll distance = 100% viewport height
+          start: "top top",
+          end: "+=100%",
           scrub: 1,
-          pin: true,          // Pins the container during animation
+          pin: true,
           anticipatePin: 1,
-        }
-
+          invalidateOnRefresh: true,
+        },
       });
 
-      // Add overlay animations to timeline
       tl.to(overlays, {
         yPercent: -100,
         ease: "none",
-        duration: 1,
-        stagger: 0.5          // Optional stagger effect
+        stagger: 0.5,
       });
+
+      // Wait for all images to be loaded
+      const images = gsap.utils.toArray<HTMLImageElement>('img', containerRef.current);
+      let loadedCount = 0;
+      const totalImages = images.length;
+      const loadCallbacks: (() => void)[] = [];
+
+      const checkLoadStatus = () => {
+        if (++loadedCount === totalImages) {
+          requestAnimationFrame(() => {
+            ScrollTrigger.refresh(true);
+          });
+        }
+      };
+
+      images.forEach((img) => {
+        if (img.complete) {
+          checkLoadStatus();
+        } else {
+          const onLoad = () => {
+            checkLoadStatus();
+          };
+          img.addEventListener("load", onLoad);
+          loadCallbacks.push(() => img.removeEventListener("load", onLoad));
+        }
+      });
+
+      return () => {
+        loadCallbacks.forEach((cb) => cb());
+      };
     }, containerRef);
 
     return () => ctx.revert();
-  });
+  }, [panels]);
 
   return (
     <div className="h-[180vh]">
