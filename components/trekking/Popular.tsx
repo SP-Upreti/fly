@@ -91,10 +91,10 @@ const TrekCard = () => {
                     <p className="py-2">{item.description}</p>
                   </div>
                   <div className="flex items-center justify-between gap-2">
-                    <button className="w-full bg-white border-2 border-white rounded-full text-[#FF4E58] py-2  text-lg font-medium hover:bg-zinc-800 transition-transform cursor-pointer">
+                    <button className="w-full bg-white  rounded-full text-[#FF4E58] py-2  text-lg font-medium hover:bg-zinc-800 transition-transform cursor-pointer">
                       View Itinerary
                     </button>
-                    <button className="w-full bg-transparent border-2 border-white rounded-full text-[#FF4E58] py-2  text-lg font-medium hover:bg-red-50 transition-transform cursor-pointer">
+                    <button className="w-full bg-[#FF4E58] rounded-full hover:text-[#FF4E58] py-2  text-lg font-medium hover:bg-zinc-800 transition-transform cursor-pointer">
                       Book a date
                     </button>
                   </div>

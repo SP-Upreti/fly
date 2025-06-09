@@ -76,7 +76,7 @@ export const trek = [
     location: "Nepal",
     duration: "10 Days",
     description:
-      "Challenge yourself with a climb to Lobuche Peak and enjoy breathtaking panoramic views of Everest, Lhotse, and surrounding giants.",
+      "Challenge yourself with a climb to Lobuche Peak and enjoy breathtaking panoramic views of Everest, Lhotse, and giants.",
   },
   {
     id: 7,

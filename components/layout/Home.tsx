@@ -3,6 +3,7 @@
 import React, { Suspense, lazy } from "react";
 import dynamic from "next/dynamic";
 import Divider from "../divider/page";
+import We from "../we/We";
 
 // Dynamically import components that might access browser APIs with SSR disabled
 const Hero = dynamic(() => import("../HeroComponents/Hero"), { ssr: false });
@@ -41,7 +42,25 @@ const Home = () => {
         <About />
       </Suspense>
       <Suspense fallback={<LoadingSpinner />}>
-        <Divider />
+        <Divider
+          panels={[
+            {
+              base: "/divider-image/lang2.jpg",
+              overlay: "/divider-image/lang3.jpg",
+            },
+            {
+              base: "/divider-image/lang1.jpg",
+              overlay: "/divider-image/lang5.jpg",
+            },
+            {
+              base: "/divider-image/lang7.jpg",
+              overlay: "/divider-image/lang1.jpg",
+            },
+          ]}
+        />
+      </Suspense>
+      <Suspense fallback={<LoadingSpinner />}>
+        <We />
       </Suspense>
 
       <Suspense fallback={<LoadingSpinner />}>
@@ -57,7 +76,22 @@ const Home = () => {
       </Suspense>
 
       <Suspense fallback={<LoadingSpinner />}>
-        <Divider />
+        <Divider
+          panels={[
+            {
+              base: "/divider-image/lang2.jpg",
+              overlay: "/divider-image/lang3.jpg",
+            },
+            {
+              base: "/divider-image/lang1.jpg",
+              overlay: "/divider-image/lang5.jpg",
+            },
+            {
+              base: "/divider-image/lang7.jpg",
+              overlay: "/divider-image/lang1.jpg",
+            },
+          ]}
+        />
       </Suspense>
 
       <Suspense fallback={<LoadingSpinner />}>
@@ -74,10 +108,6 @@ const Home = () => {
 
       <Suspense fallback={<LoadingSpinner />}>
         <Advice />
-      </Suspense>
-
-      <Suspense fallback={<LoadingSpinner />}>
-        <WhatWeDo />
       </Suspense>
     </div>
   );

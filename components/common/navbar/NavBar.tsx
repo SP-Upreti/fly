@@ -477,7 +477,7 @@ const Navbar = () => {
         <div className="hidden md:block">
           <button
             onClick={() => setIsFormOpen(true)}
-            className="btn cursor-pointer "
+            className=" cursor-pointer "
           >
             <div className="in">Customize Your Trip</div>
           </button>

@@ -34,7 +34,7 @@ const TrekCard = () => {
   return (
     <div className="w-full bg-black/80 text-white py-12 pl-4 md:pl-8 lg:pl-16 lg:mt-20 relative z-10">
       <Title
-        title="Popular Treks"
+        title="Our Popular Treks"
         discription="Discover handpicked adventures loved by our community."
       />
 
@@ -75,11 +75,11 @@ const TrekCard = () => {
                   <div className="text-sm  mt-2">
                     <div className="flex items-center gap-4">
                       <div className="flex items-center bg-zinc-800 px-2 py-1 rounded-2xl">
-                        <MapPin size={16} className="mr-1 text-red-400" />
+                        <MapPin size={16} className="mr-1 text-zinc-100" />
                         <span>{item.location}</span>
                       </div>
                       <div className="flex items-center bg-zinc-800 px-2 py-1 rounded-2xl">
-                        <Clock size={16} className="mr-1 text-sky-500" />
+                        <Clock size={16} className="mr-1 text-zinc-100" />
                         <span>{item.duration}</span>
                       </div>
                       <p className=" bg-zinc-800 px-2 py-1 rounded-2xl">
@@ -91,10 +91,10 @@ const TrekCard = () => {
                     <p className="py-2">{item.description}</p>
                   </div>
                   <div className="flex items-center justify-between gap-2">
-                    <button className="w-full bg-white border-2 border-white rounded-full text-[#FF4E58] py-2  text-lg font-medium hover:bg-zinc-800 transition-transform cursor-pointer">
+                    <button className="w-full bg-white  rounded-full text-[#FF4E58] py-2  text-lg font-medium hover:bg-zinc-800 transition-transform cursor-pointer">
                       View Itinerary
                     </button>
-                    <button className="w-full bg-transparent border-2 border-white rounded-full text-[#FF4E58] py-2  text-lg font-medium hover:bg-red-50 transition-transform cursor-pointer">
+                    <button className="w-full bg-[#FF4E58] rounded-full hover:text-[#FF4E58] py-2  text-lg font-medium hover:bg-zinc-800 transition-transform cursor-pointer">
                       Book a date
                     </button>
                   </div>

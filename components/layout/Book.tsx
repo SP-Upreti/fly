@@ -47,7 +47,7 @@ const TrekBookingSection: React.FC = () => {
           animation = gsap.to(videoRef.current, {
             height: "100vh",
             width: "100%",
-            borderRadius: "0px",
+            borderRadius: "20px",
             ease: "power2.inOut",
             scrollTrigger: {
               trigger: triggerRef.current,
@@ -89,13 +89,13 @@ const TrekBookingSection: React.FC = () => {
         {mounted && (
           <video
             ref={videoRef}
-            src="/video/vedio.mp4"
+            src="/video/flyeast-vdo.mp4"
             autoPlay
             muted
             loop
             playsInline
             preload="metadata"
-            className="mx-auto h-[20vh] sm:h-[16vh] w-45 rounded-4xl object-cover"
+            className="mx-auto h-[20vh] sm:h-[16vh] w-45 rounded-4xl object-cover "
           />
         )}
       </div>
