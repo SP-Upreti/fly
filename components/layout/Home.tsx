@@ -7,6 +7,11 @@ const GridImages = dynamic(() => import("../divider/divider"), {
   ssr: false
 })
 
+
+const GridImages2 = dynamic(() => import("../divider/divider"), {
+  ssr: false
+})
+
 import We from "../we/We";
 
 //  Only dynamically import browser-dependent components
@@ -62,7 +67,7 @@ const Home = () => {
       <Popular />
       <CallToAction />
 
-      <GridImages
+      <GridImages2
         panels={[
           {
             base: "/divider-image/lang2.jpg",
@@ -74,7 +79,7 @@ const Home = () => {
           },
           {
             base: "/divider-image/lang7.jpg",
-            overlay: "/logo.png",
+            overlay: "/logo_banner2.png",
           },
         ]}
       />
