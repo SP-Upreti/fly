@@ -1,5 +1,3 @@
-"use client";
-
 import { useState, useEffect, useCallback } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import useEmblaCarousel from "embla-carousel-react";
@@ -104,12 +102,12 @@ const Hero = () => {
   }, [emblaApi]);
 
   return (
-    <div className="relative w-full h-screen z-10 overflow-hidden font-sans">
+    <div className="relative w-full  h-screen z-10 overflow-hidden font-sans">
       {/* Background Image */}
       <img
         src={backgroundImage}
         alt="Hero Background"
-        className="w-full h-full object-cover object-center transition-opacity duration-500"
+        className="w-full h-full  object-cover object-center transition-opacity duration-500"
       />
 
       {/* Transitioning Image */}
@@ -117,15 +115,15 @@ const Hero = () => {
         <img
           src={transitionImage}
           alt="Transition"
-          className="absolute inset-0 w-full h-full object-cover object-center z-40 animate-zoomIn"
+          className="absolute inset-0  w-full h-full object-cover object-center z-40 animate-zoomIn"
         />
       )}
 
       {/* Top Gradient */}
-      <div className="absolute inset-x-0 top-0 h-[20vh] bg-gradient-to-b from-black/50 z-50" />
+      <div className="absolute  inset-x-0 top-0 h-[20vh] bg-gradient-to-b from-black/50 z-50" />
 
       {/* Hero Title Text */}
-      <div className="absolute top-[25%] md:top-[55%] left-4 sm:left-10 md:left-20 z-50 flex flex-col space-y-2 max-w-[90%] sm:max-w-2xl">
+      <div className="absolute backdrop-blur-[2px] top-[25%] md:top-[55%] left-4 sm:left-10 md:left-20 z-50 flex flex-col space-y-2 max-w-[90%] sm:max-w-2xl">
         <h2 className="text-white text-4xl md:text-7xl lg:text-[4vw] font-bold uppercase leading-tighter">
           Reconnect with the Natural World
         </h2>
@@ -191,11 +189,10 @@ const Hero = () => {
           <button
             key={index}
             onClick={() => emblaApi?.scrollTo(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
-              currentIndex === index
-                ? "bg-white scale-125"
-                : "bg-white/50 hover:bg-white/80"
-            }`}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${currentIndex === index
+              ? "bg-white scale-125"
+              : "bg-white/50 hover:bg-white/80"
+              }`}
           />
         ))}
       </div>

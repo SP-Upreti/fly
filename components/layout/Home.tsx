@@ -2,11 +2,16 @@
 
 import React, { Suspense, lazy } from "react";
 import dynamic from "next/dynamic";
-import Divider from "../divider/page";
+import Divider from "../divider/divider";
 import We from "../we/We";
 
 // Dynamically import components that might access browser APIs with SSR disabled
-const Hero = dynamic(() => import("../HeroComponents/Hero"), { ssr: false });
+
+// 👇 Dynamically import Hero and disable SSR
+const Hero = dynamic(() => import("../HeroComponents/Hero"), {
+  ssr: false,
+  loading: () => <div className="min-h-screen flex items-center justify-center">Loading Hero...</div>,
+});
 const About = dynamic(() => import("../about/page"), { ssr: false });
 const TrekCard = dynamic(() => import("../trekking/TrekCard"), { ssr: false });
 const Popular = dynamic(() => import("../trekking/Popular"), { ssr: false });
@@ -18,7 +23,7 @@ const Testimonial = dynamic(() => import("../testimonials/Testimonial"), {
   ssr: false,
 });
 const Advice = dynamic(() => import("../advice/Advice"), { ssr: false });
-const WhatWeDo = dynamic(() => import("../whatwedo/WhatWeDo"), { ssr: false });
+// const WhatWeDo = dynamic(() => import("../whatwedo/WhatWeDo"), { ssr: false });
 const CallToAction = dynamic(() => import("../calltoaction/CallToAction"), {
   ssr: false,
 });
@@ -53,7 +58,7 @@ const Home = () => {
               overlay: "/divider-image/lang5.jpg",
             },
             {
-              base: "/divider-image/lang7.jpg",
+              base: "/logo_banner2.png",
               overlay: "/divider-image/lang1.jpg",
             },
           ]}
@@ -88,7 +93,7 @@ const Home = () => {
             },
             {
               base: "/divider-image/lang7.jpg",
-              overlay: "/divider-image/lang1.jpg",
+              overlay: "/logo.png",
             },
           ]}
         />

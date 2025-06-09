@@ -4,7 +4,7 @@
 body {
   font-family: 'Sen', sans-serif;
   background: black;
-  scroll-behavior: smooth;
+  scroll-behavior: smooth !important;
 }
 
 
